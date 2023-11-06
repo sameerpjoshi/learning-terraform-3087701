@@ -70,14 +70,15 @@ module "blog_alb" {
     }
   }
 
-  target_groups = [
+  target_groups = {
     ex-instance = {
       name_prefix      = "blog-"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
+      target_id        = module.autoscaling.autoscaling_group_id
     }
-  ]
+  }
 
   tags = {
     Environment = "dev"
